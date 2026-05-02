@@ -107,3 +107,9 @@ if("serviceWorker" in navigator){
 
 </body>
 </html>
+<div style="margin-top:20px;">
+  <input id="aiInput" placeholder="Ask C21 AI..." onkeydown="if(event.key==='Enter'){askAI()}">
+  <button onclick="askAI()">AI</button>
+</div>
+
+<div id="aiBox" style="margin-top:20px; width:360px;"></div>
