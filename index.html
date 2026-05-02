@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>C21</title>
@@ -13,9 +13,9 @@
       margin:0;
       height:100vh;
       display:flex;
-      flex-direction:column;
-      align-items:center;
       justify-content:center;
+      align-items:center;
+      flex-direction:column;
       font-family:Arial;
       background:linear-gradient(135deg,#0f172a,#1e293b);
       color:white;
@@ -26,14 +26,8 @@
       margin-bottom:20px;
     }
 
-    .box{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-
     input{
-      width:360px;
+      width:320px;
       padding:15px;
       border-radius:30px;
       border:none;
@@ -48,131 +42,64 @@
       border-radius:25px;
       background:#22c55e;
       color:white;
-      cursor:pointer;
     }
 
-    #suggestions{
-      width:360px;
-      margin-top:10px;
-      background:rgba(255,255,255,0.1);
-      border-radius:10px;
-      display:none;
-    }
-
-    .item{
-      padding:10px;
-      cursor:pointer;
-    }
-
-    .item:hover{
-      background:rgba(255,255,255,0.2);
-    }
-
-    #results{
-      margin-top:20px;
-      width:360px;
-    }
-
-    .card{
-      background:rgba(255,255,255,0.1);
-      padding:10px;
-      margin:5px;
-      border-radius:10px;
+    /* SPLASH */
+    #splash{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:#0f172a;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:40px;
+      z-index:999;
     }
   </style>
 </head>
 
 <body>
 
+<div id="splash">C21</div>
+
 <h1>C21</h1>
 
-<div class="box">
-  <input id="search" placeholder="Search C21..." oninput="suggest()">
-
-  <button onclick="go()">Search</button>
-
-  <div id="suggestions"></div>
-
-  <div id="results"></div>
-</div>
+<input id="search" placeholder="Search C21...">
+<button onclick="go()">Search</button>
 
 <script>
-const commands = [
-  "youtube","google","github","instagram","whatsapp",
-  "chatgpt","gemini","tiktok","netflix","reddit"
-];
-
-// 🔥 AUTOCOMPLETE
-function suggest(){
-  let q = document.getElementById("search").value.toLowerCase();
-  let box = document.getElementById("suggestions");
-
-  if(!q){
-    box.style.display="none";
-    return;
-  }
-
-  let matches = commands.filter(c => c.includes(q));
-
-  if(matches.length === 0){
-    box.style.display="none";
-    return;
-  }
-
-  box.style.display="block";
-  box.innerHTML = matches.map(m => 
-    `<div class="item" onclick="select('${m}')">${m}</div>`
-  ).join("");
-}
-
-function select(val){
-  document.getElementById("search").value = val;
-  document.getElementById("suggestions").style.display="none";
-  go();
-}
-
-// 🔥 MAIN SEARCH + RESULTS PAGE
 function go(){
   let q = document.getElementById("search").value.toLowerCase().trim();
-  let res = document.getElementById("results");
 
-  if(!q) return;
-
-  res.innerHTML = "";
-
-  // 🔥 APP ROUTER
   if(q === "youtube" || q === "yt"){
     window.open("https://youtube.com");
   }
   else if(q === "google" || q === "g"){
-    window.open("https://google.com");
+    window.open("https://www.bing.com");
   }
-  else if(q === "github" || q === "gh"){
+  else if(q === "github"){
     window.open("https://github.com");
-  }
-  else if(q === "instagram" || q === "insta"){
-    window.open("https://instagram.com");
   }
   else if(q === "wp" || q === "whatsapp"){
     window.open("https://web.whatsapp.com");
   }
-  else if(q === "chatgpt" || q === "ai"){
-    window.open("https://chat.openai.com");
+  else if(q === "insta"){
+    window.open("https://instagram.com");
   }
-  else if(q === "gemini"){
-    window.open("https://gemini.google.com");
-  }
-  else {
-    // 🔥 FAKE RESULT PAGE
-    res.innerHTML = `
-      <div class="card">Sonuç: ${q}</div>
-      <div class="card">Web result 1 for ${q}</div>
-      <div class="card">Web result 2 for ${q}</div>
-    `;
+  else{
+    window.open("https://www.bing.com/search?q=" + q);
   }
 }
 
-// 🔥 PWA SERVICE WORKER
+/* splash screen */
+setTimeout(()=>{
+  document.getElementById("splash").style.display="none";
+},1500);
+
+/* PWA register */
 if("serviceWorker" in navigator){
   navigator.serviceWorker.register("service-worker.js");
 }
