@@ -41,3 +41,12 @@
 
 </body>
 </html>
+<input id="q" placeholder="ara...">
+<button onclick="go()">Ara</button>
+
+<script>
+function go() {
+  let query = document.getElementById("q").value;
+  window.location.href = "https://www.google.com/search?q=" + query;
+}
+</script>
