@@ -23,7 +23,7 @@
     }
 
     input{
-      width:340px;
+      width:360px;
       padding:15px;
       border-radius:30px;
       border:none;
@@ -39,18 +39,13 @@
       background:#22c55e;
       color:white;
       cursor:pointer;
-      transition:0.3s;
-    }
-
-    button:hover{
-      transform:scale(1.05);
-      background:#16a34a;
     }
 
     ul{
       margin-top:25px;
       list-style:none;
       padding:0;
+      width:360px;
     }
 
     li{
@@ -58,6 +53,7 @@
       padding:8px 12px;
       margin:5px;
       border-radius:10px;
+      text-align:left;
     }
   </style>
 </head>
@@ -67,8 +63,8 @@
   <h1>C21</h1>
 
   <div>
-    <input id="search" placeholder="C21 search..." onkeydown="if(event.key==='Enter'){go()}">
-    <button onclick="go()">Search</button>
+    <input id="search" placeholder="C21 command..." onkeydown="if(event.key==='Enter'){go()}">
+    <button onclick="go()">Run</button>
   </div>
 
   <ul id="history"></ul>
@@ -85,24 +81,49 @@
       document.getElementById("history").innerHTML =
         history.map(x => `<li>${x}</li>`).join("");
 
-      // 🔥 MULTI SITE SYSTEM
-      if(q.includes("youtube")){
+      // 🔥 C21 COMMAND SYSTEM
+      if(q === "youtube" || q === "yt"){
         window.open("https://www.youtube.com");
       }
-      else if(q.includes("google")){
+
+      else if(q === "google" || q === "g"){
         window.open("https://www.google.com");
       }
-      else if(q.includes("github")){
+
+      else if(q === "github" || q === "gh"){
         window.open("https://github.com");
       }
-      else if(q.includes("wikipedia")){
-        window.open("https://www.wikipedia.org");
-      }
-      else if(q.includes("instagram")){
+
+      else if(q === "instagram" || q === "insta"){
         window.open("https://www.instagram.com");
       }
+
+      else if(q === "whatsapp" || q === "wp"){
+        window.open("https://web.whatsapp.com");
+      }
+
+      else if(q === "chatgpt" || q === "ai"){
+        window.open("https://chat.openai.com");
+      }
+
+      else if(q === "gemini"){
+        window.open("https://gemini.google.com");
+      }
+
+      else if(q === "tiktok"){
+        window.open("https://www.tiktok.com");
+      }
+
+      else if(q === "netflix"){
+        window.open("https://www.netflix.com");
+      }
+
+      else if(q === "reddit"){
+        window.open("https://www.reddit.com");
+      }
+
       else{
-        alert("C21 bulunamadı: " + q);
+        alert("C21: Bulunamadı → " + q);
       }
 
       document.getElementById("search").value = "";
