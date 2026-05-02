@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>C21 AI</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#0f172a;
+  color:white;
+  font-family:Arial;
+}
+
+input{
+  width:300px;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+}
+
+button{
+  margin-top:5px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+#out{
+  margin-top:20px;
+  width:320px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>C21 AI</h1>
+
+<input id="q" placeholder="Ask C21 AI">
+<button onclick="ask()">Send</button>
+<button onclick="voice()">🎤</button>
+
+<div id="out"></div>
+
+<script>
+
+async function ask(){
+  let text = document.getElementById("q").value;
+
+  let res = await fetch("http://localhost:3000/ai", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({text})
+  });
+
+  let data = await res.json();
+
+  document.getElementById("out").innerHTML +=
+  "<div>> " + data.reply + "</div>";
+}
+
+/* 🎤 voice */
+function voice(){
+  let rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  rec.lang = "en-US";
+  rec.start();
+
+  rec.onresult = (e)=>{
+    document.getElementById("q").value =
+    e.results[0][0].transcript;
+  }
+}
+
+</script>
+
+</body>
+</html>
