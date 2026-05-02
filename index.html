@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>C21</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
 
   <style>
     body{
@@ -9,8 +14,8 @@
       height:100vh;
       display:flex;
       flex-direction:column;
-      justify-content:center;
       align-items:center;
+      justify-content:center;
       font-family:Arial;
       background:linear-gradient(135deg,#0f172a,#1e293b);
       color:white;
@@ -19,7 +24,12 @@
     h1{
       font-size:60px;
       margin-bottom:20px;
-      letter-spacing:3px;
+    }
+
+    .box{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
     }
 
     input{
@@ -32,103 +42,141 @@
     }
 
     button{
-      margin-left:10px;
-      padding:15px 20px;
+      margin-top:10px;
+      padding:12px 20px;
       border:none;
-      border-radius:30px;
+      border-radius:25px;
       background:#22c55e;
       color:white;
       cursor:pointer;
     }
 
-    ul{
-      margin-top:25px;
-      list-style:none;
-      padding:0;
+    #suggestions{
+      width:360px;
+      margin-top:10px;
+      background:rgba(255,255,255,0.1);
+      border-radius:10px;
+      display:none;
+    }
+
+    .item{
+      padding:10px;
+      cursor:pointer;
+    }
+
+    .item:hover{
+      background:rgba(255,255,255,0.2);
+    }
+
+    #results{
+      margin-top:20px;
       width:360px;
     }
 
-    li{
+    .card{
       background:rgba(255,255,255,0.1);
-      padding:8px 12px;
+      padding:10px;
       margin:5px;
       border-radius:10px;
-      text-align:left;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>C21</h1>
+<h1>C21</h1>
 
-  <div>
-    <input id="search" placeholder="C21 command..." onkeydown="if(event.key==='Enter'){go()}">
-    <button onclick="go()">Run</button>
-  </div>
+<div class="box">
+  <input id="search" placeholder="Search C21..." oninput="suggest()">
 
-  <ul id="history"></ul>
+  <button onclick="go()">Search</button>
 
-  <script>
-    let history = [];
+  <div id="suggestions"></div>
 
-    function go(){
-      let q = document.getElementById("search").value.toLowerCase().trim();
-      if(!q) return;
+  <div id="results"></div>
+</div>
 
-      history.unshift(q);
+<script>
+const commands = [
+  "youtube","google","github","instagram","whatsapp",
+  "chatgpt","gemini","tiktok","netflix","reddit"
+];
 
-      document.getElementById("history").innerHTML =
-        history.map(x => `<li>${x}</li>`).join("");
+// 🔥 AUTOCOMPLETE
+function suggest(){
+  let q = document.getElementById("search").value.toLowerCase();
+  let box = document.getElementById("suggestions");
 
-      // 🔥 C21 COMMAND SYSTEM
-      if(q === "youtube" || q === "yt"){
-        window.open("https://www.youtube.com");
-      }
+  if(!q){
+    box.style.display="none";
+    return;
+  }
 
-      else if(q === "google" || q === "g"){
-        window.open("https://www.google.com");
-      }
+  let matches = commands.filter(c => c.includes(q));
 
-      else if(q === "github" || q === "gh"){
-        window.open("https://github.com");
-      }
+  if(matches.length === 0){
+    box.style.display="none";
+    return;
+  }
 
-      else if(q === "instagram" || q === "insta"){
-        window.open("https://www.instagram.com");
-      }
+  box.style.display="block";
+  box.innerHTML = matches.map(m => 
+    `<div class="item" onclick="select('${m}')">${m}</div>`
+  ).join("");
+}
 
-      else if(q === "whatsapp" || q === "wp"){
-        window.open("https://web.whatsapp.com");
-      }
+function select(val){
+  document.getElementById("search").value = val;
+  document.getElementById("suggestions").style.display="none";
+  go();
+}
 
-      else if(q === "chatgpt" || q === "ai"){
-        window.open("https://chat.openai.com");
-      }
+// 🔥 MAIN SEARCH + RESULTS PAGE
+function go(){
+  let q = document.getElementById("search").value.toLowerCase().trim();
+  let res = document.getElementById("results");
 
-      else if(q === "gemini"){
-        window.open("https://gemini.google.com");
-      }
+  if(!q) return;
 
-      else if(q === "tiktok"){
-        window.open("https://www.tiktok.com");
-      }
+  res.innerHTML = "";
 
-      else if(q === "netflix"){
-        window.open("https://www.netflix.com");
-      }
+  // 🔥 APP ROUTER
+  if(q === "youtube" || q === "yt"){
+    window.open("https://youtube.com");
+  }
+  else if(q === "google" || q === "g"){
+    window.open("https://google.com");
+  }
+  else if(q === "github" || q === "gh"){
+    window.open("https://github.com");
+  }
+  else if(q === "instagram" || q === "insta"){
+    window.open("https://instagram.com");
+  }
+  else if(q === "wp" || q === "whatsapp"){
+    window.open("https://web.whatsapp.com");
+  }
+  else if(q === "chatgpt" || q === "ai"){
+    window.open("https://chat.openai.com");
+  }
+  else if(q === "gemini"){
+    window.open("https://gemini.google.com");
+  }
+  else {
+    // 🔥 FAKE RESULT PAGE
+    res.innerHTML = `
+      <div class="card">Sonuç: ${q}</div>
+      <div class="card">Web result 1 for ${q}</div>
+      <div class="card">Web result 2 for ${q}</div>
+    `;
+  }
+}
 
-      else if(q === "reddit"){
-        window.open("https://www.reddit.com");
-      }
-
-      else{
-        alert("C21: Bulunamadı → " + q);
-      }
-
-      document.getElementById("search").value = "";
-    }
-  </script>
+// 🔥 PWA SERVICE WORKER
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
 
 </body>
 </html>
