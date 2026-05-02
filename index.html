@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Google</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 150px;
+      font-family: Arial;
+      background: #f2f2f2;
+    }
+
+    input {
+      width: 300px;
+      padding: 10px;
+      border-radius: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>My Google</h1>
+
+  <input id="search" placeholder="search something">
+
+  <br><br>
+
+  <button onclick="alert('Searching: ' + document.getElementById('search').value)">
+    Search
+  </button>
+
+</body>
+</html>
