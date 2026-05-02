@@ -48,5 +48,21 @@
 function go() {
   let query = document.getElementById("q").value;
   window.location.href = "https://www.google.com/search?q=" + query;
+  
+}
+</script>
+<script>
+function search() {
+  let q = document.getElementById("search").value.toLowerCase();
+
+  if (q === "youtube") {
+    window.location.href = "https://www.youtube.com";
+  }
+  else if (q === "google") {
+    window.location.href = "https://www.google.com";
+  }
+  else {
+    alert("Bulunamadı: " + q);
+  }
 }
 </script>
