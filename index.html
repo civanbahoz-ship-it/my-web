@@ -1,78 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Search</title>
+  <title>C21</title>
 
   <style>
-    body {
+    body{
       margin:0;
       height:100vh;
       display:flex;
+      flex-direction:column;
       justify-content:center;
       align-items:center;
-      flex-direction:column;
       font-family:Arial;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background:linear-gradient(135deg,#0f172a,#1e293b);
       color:white;
     }
 
-    h1 {
-      font-size:40px;
+    h1{
+      font-size:60px;
       margin-bottom:20px;
-      letter-spacing:2px;
+      letter-spacing:3px;
     }
 
-    .box {
-      display:flex;
-      gap:10px;
-    }
-
-    input {
-      width:300px;
-      padding:12px;
-      border-radius:25px;
+    input{
+      width:340px;
+      padding:15px;
+      border-radius:30px;
       border:none;
       outline:none;
-      font-size:16px;
+      font-size:18px;
     }
 
-    button {
-      padding:12px 18px;
+    button{
+      margin-left:10px;
+      padding:15px 20px;
       border:none;
-      border-radius:25px;
+      border-radius:30px;
       background:#22c55e;
       color:white;
       cursor:pointer;
       transition:0.3s;
     }
 
-    button:hover {
-      background:#16a34a;
+    button:hover{
       transform:scale(1.05);
+      background:#16a34a;
     }
 
-    ul {
-      margin-top:20px;
+    ul{
+      margin-top:25px;
       list-style:none;
       padding:0;
     }
 
-    li {
+    li{
       background:rgba(255,255,255,0.1);
       padding:8px 12px;
       margin:5px;
       border-radius:10px;
-      backdrop-filter: blur(10px);
     }
   </style>
 </head>
 
 <body>
 
-  <h1>My Search</h1>
+  <h1>C21</h1>
 
-  <div class="box">
-    <input id="search" placeholder="ara..." onkeydown="if(event.key==='Enter'){go()}">
+  <div>
+    <input id="search" placeholder="C21 search..." onkeydown="if(event.key==='Enter'){go()}">
     <button onclick="go()">Search</button>
   </div>
 
@@ -81,26 +76,33 @@
   <script>
     let history = [];
 
-    function go() {
+    function go(){
       let q = document.getElementById("search").value.toLowerCase().trim();
       if(!q) return;
 
       history.unshift(q);
 
       document.getElementById("history").innerHTML =
-        history.map(i => `<li>${i}</li>`).join("");
+        history.map(x => `<li>${x}</li>`).join("");
 
-      if (q === "youtube") {
+      // 🔥 MULTI SITE SYSTEM
+      if(q.includes("youtube")){
         window.open("https://www.youtube.com");
       }
-      else if (q === "google") {
+      else if(q.includes("google")){
         window.open("https://www.google.com");
       }
-      else if (q === "github") {
+      else if(q.includes("github")){
         window.open("https://github.com");
       }
-      else {
-        alert("Bulunamadı: " + q);
+      else if(q.includes("wikipedia")){
+        window.open("https://www.wikipedia.org");
+      }
+      else if(q.includes("instagram")){
+        window.open("https://www.instagram.com");
+      }
+      else{
+        alert("C21 bulunamadı: " + q);
       }
 
       document.getElementById("search").value = "";
