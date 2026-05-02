@@ -1,68 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>civan</title>
-  <style>
-    body {
-      text-align: center;
-      margin-top: 150px;
-      font-family: Arial;
-      background: #f2f2f2;
-    }
-
-    input {
-      width: 300px;
-      padding: 10px;
-      border-radius: 20px;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 10px;
-    }
-  </style>
+  <title>My Search</title>
 </head>
 
-<body>
+<body style="text-align:center; margin-top:150px; font-family:Arial;">
 
-  <h1>civan</h1>
+  <h1>My Search</h1>
 
-  <input id="search" placeholder="search something">
+  <input id="search" placeholder="ara...">
+  <button onclick="go()">Ara</button>
 
-  <br><br>
+  <script>
+    function go() {
+      let q = document.getElementById("search").value.toLowerCase().trim();
 
-  <button onclick="alert('Searching: ' + document.getElementById('search').value)">
-    Search
-  </button>
+      if (q === "youtube") {
+        window.location.href = "https://www.youtube.com";
+      }
+      else if (q === "google") {
+        window.location.href = "https://www.google.com";
+      }
+      else if (q === "github") {
+        window.location.href = "https://github.com";
+      }
+      else {
+        alert("Bulunamadı: " + q);
+      }
+    }
+  </script>
 
 </body>
 </html>
-<input id="q" placeholder="ara...">
-<button onclick="go()">Ara</button>
-
-<script>
-function go() {
-  let query = document.getElementById("q").value;
-  window.location.href = "https://www.google.com/search?q=" + query;
-  
-}
-</script>
-<script>
-function search() {
-  let q = document.getElementById("search").value.toLowerCase();
-
-  if (q === "youtube") {
-    window.location.href = "https://www.youtube.com";
-  }
-  else if (q === "google") {
-    window.location.href = "https://www.google.com";
-  }
-  else {
-    alert("Bulunamadı: " + q);
-  }
-}
-</script>
